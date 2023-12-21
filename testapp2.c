@@ -44,3 +44,4 @@ int main() {
   cache_limit_revised_downward_test();
   printf("%s\n", "test app2 success");
 }
+decreased
