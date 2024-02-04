@@ -1,0 +1,2232 @@
+#0
+authfile.c:71: error: Integer Overflow L2
+  ([0, 255] - [1, 256]):unsigned64.
+  69.                     auth_cur[x] == '\r' ||
+  70.                     auth_cur[x] == '\0') {
+  71.                     entry_cur->plen = x - (entry_cur->ulen + 1);
+                          ^
+  72.                     break;
+  73.                 }
+
+#1
+daemon.c:54: error: Unreachable Code
+  Unreachable code after statement.
+  52.         break;
+  53.     default:
+  54.         _exit(EXIT_SUCCESS);
+              ^
+  55.     }
+  56. 
+
+#2
+proto_text.c:82: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 296 by call to `out_string`.
+  80.     default:
+  81.       c->noreply = false;
+  82.       out_string(c, "SERVER_ERROR Unhandled storage type.");
+            ^
+  83.       return;
+  84.     }
+
+#3
+storage.c:84: error: Null Dereference
+  pointer `&st->page_data` last assigned on line 83 could be null and is dereferenced by call to `extstore_get_page_data()` at line 84, column 5.
+  82.     extstore_get_stats(storage, &st);
+  83.     st.page_data = calloc(st.page_count, sizeof(struct extstore_page_data));
+  84.     extstore_get_page_data(storage, &st);
+          ^
+  85. 
+  86.     for (i = 0; i < st.page_count; i++) {
+
+#4
+cache.c:97: error: Uninitialized Value
+  The value read from ret was never initialized.
+  95.     if (object != NULL) {
+  96.         /* add a simple form of buffer-check */
+  97.         uint64_t *pre = ret;
+              ^
+  98.         *pre = redzone_pattern;// infer report 0-20 left 8 byte
+  99.         ret = pre+1;
+
+#5
+timedrun.c:85: error: Dead Store
+  The value written to &rv (type int) is never used.
+  83. static int spawn_and_wait(char **argv)
+  84. {
+  85.     int rv = EX_SOFTWARE;
+          ^
+  86.     pid_t pid = fork();
+  87. 
+
+#6
+testapp.c:113: error: Buffer Overrun L3
+  Offset added: 20 (⇐ 12 + 8) Size: [0, 160] by call to `cache_alloc`.
+  111.         return TEST_FAIL;
+  112.     }
+  113.     char *ptr = cache_alloc(cache);
+                       ^
+  114.     cache_free(cache, ptr);
+  115.     for (ii = 0; ii < 100; ++ii) {
+
+#7
+testapp.c:113: error: Buffer Overrun L3
+  Offset: 0 Size: [0, 20] by call to `cache_alloc`.
+  111.         return TEST_FAIL;
+  112.     }
+  113.     char *ptr = cache_alloc(cache);
+                       ^
+  114.     cache_free(cache, ptr);
+  115.     for (ii = 0; ii < 100; ++ii) {
+
+#8
+slabs.c:123: error: Dead Store
+  The value written to &ret (type int) is never used.
+  121.         while ((fgets(buf, sizeof(buf), fp)))
+  122.             if (!strncmp(buf, "Hugepagesize:", 13)) {
+  123.                 ret = sscanf(buf + 13, "%zu\n", &pagesize);
+                       ^
+  124. 
+  125.                 /* meminfo huge page size is in KiBs */
+
+#9
+testapp.c:135: error: Buffer Overrun S2
+  Offset added: `datasize` + 16 (⇐ `datasize` + 8 + 8) Size: [0, 8⋅`datasize` + 128] by call to `cache_alloc`.
+  133. 
+  134.     for (int ii = 0; ii < ITERATIONS; ++ii) {
+  135.         ptr[ii] = cache_alloc(cache);
+                         ^
+  136.         assert(ptr[ii] != 0);
+  137.         memset(ptr[ii], 0xff, datasize);
+
+#10
+proto_text.c:230: error: Buffer Overrun L2
+  Offset added: [10, 1022] Size: 88 by call to `out_string`.
+  228.               break;
+  229.           case NOT_STORED:
+  230.               out_string(c, "NOT_STORED");
+                     ^
+  231.               break;
+  232.           default:
+
+#11
+proto_text.c:180: error: Buffer Overrun L2
+  Offset added: [27, 1022] Size: 224 by call to `out_string`.
+  178.             c->noreply = false;
+  179.         }
+  180.         out_string(c, "CLIENT_ERROR bad data chunk");
+               ^
+  181.     } else {
+  182.       uint64_t cas = 0;
+
+#12
+proto_text.c:233: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 296 by call to `out_string`.
+  231.               break;
+  232.           default:
+  233.               out_string(c, "SERVER_ERROR Unhandled storage type.");
+                     ^
+  234.           }
+  235.       }
+
+#13
+proto_text.c:221: error: Buffer Overrun L2
+  Offset added: [6, 1022] Size: 56 by call to `out_string`.
+  219.           switch (ret) {
+  220.           case STORED:
+  221.               out_string(c, "STORED");
+                     ^
+  222.               break;
+  223.           case EXISTS:
+
+#14
+proto_text.c:227: error: Buffer Overrun L2
+  Offset added: [9, 1022] Size: 80 by call to `out_string`.
+  225.               break;
+  226.           case NOT_FOUND:
+  227.               out_string(c, "NOT_FOUND");
+                     ^
+  228.               break;
+  229.           case NOT_STORED:
+
+#15
+testapp.c:153: error: Buffer Overrun L3
+  Offset added: 528 (⇐ 520 + 8) Size: [0, 4224] by call to `cache_bulkalloc`.
+  151.     enum test_return ret = cache_bulkalloc(1);
+  152.     if (ret == TEST_PASS) {
+  153.         ret = cache_bulkalloc(512);
+                     ^
+  154.     }
+  155. 
+
+#16
+testapp.c:153: error: Buffer Overrun L3
+  Offset: 0 Size: [0, 528] by call to `cache_bulkalloc`.
+  151.     enum test_return ret = cache_bulkalloc(1);
+  152.     if (ret == TEST_PASS) {
+  153.         ret = cache_bulkalloc(512);
+                     ^
+  154.     }
+  155. 
+
+#17
+testapp.c:174: error: Buffer Overrun L3
+  Offset added: 20 (⇐ 12 + 8) Size: [0, 160] by call to `cache_alloc`.
+  172. 
+  173.     /* check memory debug.. */
+  174.     char *p = cache_alloc(cache);
+                     ^
+  175.     char old = *(p - 1);
+  176.     *(p - 1) = 0;
+
+#18
+testapp.c:174: error: Buffer Overrun L3
+  Offset: 0 Size: [0, 20] by call to `cache_alloc`.
+  172. 
+  173.     /* check memory debug.. */
+  174.     char *p = cache_alloc(cache);
+                     ^
+  175.     char old = *(p - 1);
+  176.     *(p - 1) = 0;
+
+#19
+testapp.c:175: error: Buffer Overrun L3
+  Offset: [-1, 0] (⇐ [0, 1] + -1) Size: 20.
+  173.     /* check memory debug.. */
+  174.     char *p = cache_alloc(cache);
+  175.     char old = *(p - 1);
+                      ^
+  176.     *(p - 1) = 0;
+  177.     cache_free(cache, p);
+
+#20
+testapp.c:206: error: Buffer Overrun L3
+  Offset added: 20 (⇐ 12 + 8) Size: [0, 160] by call to `cache_alloc`.
+  204.     /* cache->limit is 0 and we can allocate limit+1 items */
+  205.     for (i = 0; i < allocated_num; i++) {
+  206.         alloc_objs[i] = cache_alloc(cache);
+                               ^
+  207.         assert(alloc_objs[i] != NULL);
+  208.     }
+
+#21
+testapp.c:206: error: Buffer Overrun L3
+  Offset: 0 Size: [0, 20] by call to `cache_alloc`.
+  204.     /* cache->limit is 0 and we can allocate limit+1 items */
+  205.     for (i = 0; i < allocated_num; i++) {
+  206.         alloc_objs[i] = cache_alloc(cache);
+                               ^
+  207.         assert(alloc_objs[i] != NULL);
+  208.     }
+
+#22
+testapp.c:206: error: Null Dereference
+  pointer `alloc_objs` last assigned on line 199 could be null and is dereferenced at line 206, column 9.
+  204.     /* cache->limit is 0 and we can allocate limit+1 items */
+  205.     for (i = 0; i < allocated_num; i++) {
+  206.         alloc_objs[i] = cache_alloc(cache);
+               ^
+  207.         assert(alloc_objs[i] != NULL);
+  208.     }
+
+#23
+crawler.c:242: error: Integer Overflow L2
+  ([0, +oo] - 1):unsigned64 by call to `do_item_unlink_nolock`.
+  240.         STORAGE_delete(storage, search);
+  241. #endif
+  242.         do_item_unlink_nolock(search, hv);
+               ^
+  243.         do_item_remove(search);
+  244.     } else {
+
+#24
+testapp.c:241: error: Buffer Overrun L3
+  Offset added: [0, 6] Size: [1, 7] by call to `stats_prefix_find`.
+  239.     pfs2 = stats_prefix_find("abc:d", 5);
+  240.     assert(pfs1 == pfs2);
+  241.     pfs2 = stats_prefix_find("xyz123:", 6);
+                  ^
+  242.     assert(pfs1 != pfs2);
+  243.     pfs2 = stats_prefix_find("ab:", 3);
+
+#25
+testapp.c:241: error: Buffer Overrun L3
+  Offset: [0, 6] Size: [1, 7] by call to `stats_prefix_find`.
+  239.     pfs2 = stats_prefix_find("abc:d", 5);
+  240.     assert(pfs1 == pfs2);
+  241.     pfs2 = stats_prefix_find("xyz123:", 6);
+                  ^
+  242.     assert(pfs1 != pfs2);
+  243.     pfs2 = stats_prefix_find("ab:", 3);
+
+#26
+extstore.c:332: error: Buffer Overrun L3
+  Offset: [0, 65533] Size: [0, 65534].
+  330.         }
+  331.         pthread_mutex_init(&e->pages[i].mutex, NULL);
+  332.         e->pages[i].id = i;
+               ^
+  333.         e->pages[i].fd = f->fd;
+  334.         e->pages[i].free_bucket = f->free_bucket;
+
+#27
+extstore.c:344: error: Integer Overflow L2
+  ([0, 65534] - 1):unsigned32.
+  342.     e->page_bucketcount = cf->page_buckets;
+  343. 
+  344.     for (i = e->page_count-1; i > 0; i--) {
+                ^
+  345.         e->page_free++;
+  346.         if (e->pages[i].free_bucket == 0) {
+
+#28
+testapp.c:252: error: Buffer Overrun L3
+  Offset added: [0, 7] Size: [1, 8] by call to `stats_prefix_record_get`.
+  250.     stats_prefix_clear();
+  251. 
+  252.     stats_prefix_record_get("abc:123", 7, false);
+           ^
+  253.     pfs = stats_prefix_find("abc:123", 7);
+  254.     if (pfs == NULL) {
+
+#29
+testapp.c:252: error: Buffer Overrun L3
+  Offset: [0, 7] Size: [1, 8] by call to `stats_prefix_record_get`.
+  250.     stats_prefix_clear();
+  251. 
+  252.     stats_prefix_record_get("abc:123", 7, false);
+           ^
+  253.     pfs = stats_prefix_find("abc:123", 7);
+  254.     if (pfs == NULL) {
+
+#30
+proto_bin.c:312: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 368 by call to `out_of_memory`.
+  310.         break;
+  311.     case EOM:
+  312.         out_of_memory(c, "SERVER_ERROR Out of memory incrementing value");
+               ^
+  313.         break;
+  314.     case DELTA_ITEM_NOT_FOUND:
+
+#31
+testapp.c:275: error: Buffer Overrun L3
+  Offset added: [0, 7] Size: [1, 8] by call to `stats_prefix_record_delete`.
+  273.     stats_prefix_clear();
+  274. 
+  275.     stats_prefix_record_delete("abc:123", 7);
+           ^
+  276.     pfs = stats_prefix_find("abc:123", 7);
+  277.     if (pfs == NULL) {
+
+#32
+testapp.c:275: error: Buffer Overrun L3
+  Offset: [0, 7] Size: [1, 8] by call to `stats_prefix_record_delete`.
+  273.     stats_prefix_clear();
+  274. 
+  275.     stats_prefix_record_delete("abc:123", 7);
+           ^
+  276.     pfs = stats_prefix_find("abc:123", 7);
+  277.     if (pfs == NULL) {
+
+#33
+testapp.c:293: error: Buffer Overrun L3
+  Offset added: [0, 7] Size: [1, 8] by call to `stats_prefix_record_set`.
+  291.     stats_prefix_clear();
+  292. 
+  293.     stats_prefix_record_set("abc:123", 7);
+           ^
+  294.     pfs = stats_prefix_find("abc:123", 7);
+  295.     if (pfs == NULL) {
+
+#34
+testapp.c:293: error: Buffer Overrun L3
+  Offset: [0, 7] Size: [1, 8] by call to `stats_prefix_record_set`.
+  291.     stats_prefix_clear();
+  292. 
+  293.     stats_prefix_record_set("abc:123", 7);
+           ^
+  294.     pfs = stats_prefix_find("abc:123", 7);
+  295.     if (pfs == NULL) {
+
+#35
+testapp.c:319: error: Buffer Overrun L3
+  Offset added: [0, 7] Size: [1, 8] by call to `stats_prefix_record_set`.
+  317.     assert(strcmp("END\r\n", (buf = stats_prefix_dump(&length))) == 0);
+  318.     assert(5 == length);
+  319.     stats_prefix_record_set("abc:123", 7);
+           ^
+  320.     free(buf);
+  321.     expected = "PREFIX abc get 0 hit 0 set 1 del 0\r\nEND\r\n";
+
+#36
+testapp.c:319: error: Buffer Overrun L3
+  Offset: [0, 7] Size: [1, 8] by call to `stats_prefix_record_set`.
+  317.     assert(strcmp("END\r\n", (buf = stats_prefix_dump(&length))) == 0);
+  318.     assert(5 == length);
+  319.     stats_prefix_record_set("abc:123", 7);
+           ^
+  320.     free(buf);
+  321.     expected = "PREFIX abc get 0 hit 0 set 1 del 0\r\nEND\r\n";
+
+#37
+proto_text.c:382: error: Buffer Overrun L2
+  Offset added: [28, 1022] Size: 232 by call to `out_string`.
+  380.                 }
+  381.             }
+  382.             out_string(c, "CLIENT_ERROR unauthenticated");
+                   ^
+  383.             return 1;
+  384.         }
+
+#38
+proto_text.c:437: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 288 by call to `out_string`.
+  435.         pthread_mutex_unlock(&c->thread->stats.mutex);
+  436.     } else {
+  437.         out_string(c, "CLIENT_ERROR authentication failure");
+               ^
+  438.         pthread_mutex_lock(&c->thread->stats.mutex);
+  439.         c->thread->stats.auth_cmds++;
+
+#39
+proto_text.c:430: error: Buffer Overrun L2
+  Offset added: [6, 1022] Size: 56 by call to `out_string`.
+  428. 
+  429.     if (authfile_check(tokens[0].value, tokens[1].value) == 1) {
+  430.         out_string(c, "STORED");
+               ^
+  431.         c->authenticated = true;
+  432.         c->try_read_command = try_read_command_ascii;
+
+#40
+proto_bin.c:362: error: Dead Store
+  The value written to &eno (type int) is never used.
+  360. 
+  361. static void complete_update_bin(conn *c) {
+  362.     protocol_binary_response_status eno = PROTOCOL_BINARY_RESPONSE_EINVAL;
+           ^
+  363.     enum store_item_type ret = NOT_STORED;
+  364.     assert(c != NULL);
+
+#41
+storage.c:433: error: Integer Overflow L1
+  (0 - 1):unsigned64 by call to `storage_delete`.
+  431.                 it->refcount = 0;
+  432.                 it->h_next = NULL; // might not be necessary.
+  433.                 STORAGE_delete(c->thread->storage, h_it);
+                       ^
+  434.                 item_replace(h_it, it, hv);
+  435.                 pthread_mutex_lock(&c->thread->stats.mutex);
+
+#42
+storage.c:433: error: Integer Overflow L1
+  (0 - [49, +oo]):unsigned64 by call to `storage_delete`.
+  431.                 it->refcount = 0;
+  432.                 it->h_next = NULL; // might not be necessary.
+  433.                 STORAGE_delete(c->thread->storage, h_it);
+                       ^
+  434.                 item_replace(h_it, it, hv);
+  435.                 pthread_mutex_lock(&c->thread->stats.mutex);
+
+#43
+storage.c:434: error: Integer Overflow L2
+  ([0, +oo] - [48, 61]):unsigned64 by call to `item_replace`.
+  432.                 it->h_next = NULL; // might not be necessary.
+  433.                 STORAGE_delete(c->thread->storage, h_it);
+  434.                 item_replace(h_it, it, hv);
+                       ^
+  435.                 pthread_mutex_lock(&c->thread->stats.mutex);
+  436.                 c->thread->stats.recache_from_extstore++;
+
+#44
+storage.c:434: error: Integer Overflow L2
+  ([0, +oo] - [60, 74]):unsigned64 by call to `item_replace`.
+  432.                 it->h_next = NULL; // might not be necessary.
+  433.                 STORAGE_delete(c->thread->storage, h_it);
+  434.                 item_replace(h_it, it, hv);
+                       ^
+  435.                 pthread_mutex_lock(&c->thread->stats.mutex);
+  436.                 c->thread->stats.recache_from_extstore++;
+
+#45
+storage.c:465: error: Integer Overflow L2
+  ([0, +oo] - 60):unsigned32 by call to `recache_or_free`.
+  463. // Called after responses have been transmitted. Need to free up related data.
+  464. static void storage_finalize_cb(io_pending_t *pending) {
+  465.     recache_or_free(pending);
+           ^
+  466.     io_pending_storage_t *p = (io_pending_storage_t *)pending;
+  467.     obj_io *io = &p->io_ctx;
+
+#46
+storage.c:544: error: Integer Overflow L2
+  ([0, +oo] - 32):unsigned64.
+  542.                     }
+  543.                 } else {
+  544.                     memcpy((char *)io.buf+STORE_OFFSET, (char *)it+STORE_OFFSET, io.len-STORE_OFFSET);
+                           ^
+  545.                 }
+  546.                 // crc what we copied so we can do it sequentially.
+
+#47
+items.c:494: error: Integer Overflow L2
+  ([0, +oo] - 1):unsigned32 by call to `do_item_unlink_q`.
+  492. static void item_unlink_q(item *it) {
+  493.     pthread_mutex_lock(&lru_locks[it->slabs_clsid]);
+  494.     do_item_unlink_q(it);
+           ^
+  495.     pthread_mutex_unlock(&lru_locks[it->slabs_clsid]);
+  496. }
+
+#48
+testapp.c:569: error: Dead Store
+  The value written to &arg (type int) is never used.
+  567.         argv[arg++] = "relaxed_privileges";
+  568. #endif
+  569.         argv[arg++] = NULL;
+                    ^
+  570.         assert(execv(argv[0], argv) != -1);
+  571.     }
+
+#49
+testapp.c:578: error: Integer Overflow L2
+  ([1, 10000000] - [1, 1000]):unsigned32.
+  576.     while (access(filename, F_OK) == -1 && wait_timeout > 0) {
+  577.         usleep(wait);
+  578.         wait_timeout -= (wait > wait_timeout ? wait_timeout : wait);
+               ^
+  579.     }
+  580. 
+
+#50
+items.c:546: error: Integer Overflow L2
+  ([0, +oo] - 1):unsigned32 by call to `do_item_unlink_q`.
+  544.         item_stats_sizes_remove(it);
+  545.         assoc_delete(ITEM_key(it), it->nkey, hv);
+  546.         do_item_unlink_q(it);
+               ^
+  547.         do_item_remove(it);
+  548.     }
+
+#51
+proto_text.c:712: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 296 by call to `out_string`.
+  710.         }
+  711.         if (fail_length) {
+  712.             out_string(c, "CLIENT_ERROR bad command line format");
+                   ^
+  713.         } else {
+  714.             out_of_memory(c, "SERVER_ERROR out of memory writing get response");
+
+#52
+proto_text.c:714: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 384 by call to `out_of_memory`.
+  712.             out_string(c, "CLIENT_ERROR bad command line format");
+  713.         } else {
+  714.             out_of_memory(c, "SERVER_ERROR out of memory writing get response");
+                   ^
+  715.         }
+  716.     } else {
+
+#53
+proto_text.c:672: error: Buffer Overrun L3
+  Offset added: [1184, 1196] (⇐ [0, 12] + 1184) Size: [0, +oo] by call to `resp_start`.
+  670.             key_token++;
+  671.             if (key_token->length != 0) {
+  672.                 if (!resp_start(c)) {
+                            ^
+  673.                     goto stop;
+  674.                 }
+
+#54
+proto_text.c:686: error: Buffer Overrun L3
+  Offset added: [1184, 1196] (⇐ [0, 12] + 1184) Size: [0, +oo] by call to `resp_start`.
+  684.             ntokens = tokenize_command(key_token->value, tokens, MAX_TOKENS);
+  685.             key_token = tokens;
+  686.             if (!resp_start(c)) {
+                        ^
+  687.                 goto stop;
+  688.             }
+
+#55
+proto_text.c:706: error: Buffer Overrun L3
+  Offset added: [1184, 1196] (⇐ [0, 12] + 1184) Size: [0, +oo] by call to `resp_start`.
+  704.         conn_release_items(c);
+  705.         // Start a new response object for the error message.
+  706.         if (!resp_start(c)) {
+                    ^
+  707.             // severe out of memory error.
+  708.             conn_set_state(c, conn_closing);
+
+#56
+proto_text.c:672: error: Buffer Overrun L3
+  Offset: [0, 12] Size: [0, +oo] by call to `resp_start`.
+  670.             key_token++;
+  671.             if (key_token->length != 0) {
+  672.                 if (!resp_start(c)) {
+                            ^
+  673.                     goto stop;
+  674.                 }
+
+#57
+proto_text.c:686: error: Buffer Overrun L3
+  Offset: [0, 12] Size: [0, +oo] by call to `resp_start`.
+  684.             ntokens = tokenize_command(key_token->value, tokens, MAX_TOKENS);
+  685.             key_token = tokens;
+  686.             if (!resp_start(c)) {
+                        ^
+  687.                 goto stop;
+  688.             }
+
+#58
+proto_text.c:706: error: Buffer Overrun L3
+  Offset: [0, 12] Size: [0, +oo] by call to `resp_start`.
+  704.         conn_release_items(c);
+  705.         // Start a new response object for the error message.
+  706.         if (!resp_start(c)) {
+                    ^
+  707.             // severe out of memory error.
+  708.             conn_set_state(c, conn_closing);
+
+#59
+proto_text.c:684: error: Dead Store
+  The value written to &ntokens (type unsigned long) is never used.
+  682.          */
+  683.         if (key_token->value != NULL) {
+  684.             ntokens = tokenize_command(key_token->value, tokens, MAX_TOKENS);
+                   ^
+  685.             key_token = tokens;
+  686.             if (!resp_start(c)) {
+
+#60
+items.c:596: error: Integer Overflow L2
+  ([0, +oo] - 1):unsigned64 by call to `do_item_unlink`.
+  594.     assert((it->it_flags & ITEM_SLABBED) == 0);
+  595. 
+  596.     do_item_unlink(it, hv);
+           ^
+  597.     return do_item_link(new_it, hv);
+  598. }
+
+#61
+items.c:645: error: Buffer Overrun L2
+  Offset added: [0, 2097146] Size: 512.
+  643.         if (bufcurr + len + 6 > memlimit)  /* 6 is END\r\n\0 */
+  644.             break;
+  645.         memcpy(buffer + bufcurr, temp, len);
+               ^
+  646.         bufcurr += len;
+  647.         shown++;
+
+#62
+items.c:645: error: Buffer Overrun L2
+  Offset added: [0, 4194292] (⇐ [0, 2097146] + [0, 2097146]) Size: 2097152.
+  643.         if (bufcurr + len + 6 > memlimit)  /* 6 is END\r\n\0 */
+  644.             break;
+  645.         memcpy(buffer + bufcurr, temp, len);
+               ^
+  646.         bufcurr += len;
+  647.         shown++;
+
+#63
+items.c:622: error: Inferbo Alloc Is Big
+  Length: 2097152.
+  620.     it = heads[id];
+  621. 
+  622.     buffer = malloc((size_t)memlimit);
+                    ^
+  623.     if (buffer == 0) {
+  624.         pthread_mutex_unlock(&lru_locks[id]);
+
+#64
+proto_bin.c:636: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 352 by call to `out_of_memory`.
+  634.             char *dump_buf = stats_prefix_dump(&len);
+  635.             if (dump_buf == NULL || len <= 0) {
+  636.                 out_of_memory(c, "SERVER_ERROR Out of memory generating stats");
+                       ^
+  637.                 if (dump_buf != NULL)
+  638.                     free(dump_buf);
+
+#65
+proto_bin.c:655: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 352 by call to `out_of_memory`.
+  653.         if (get_stats(subcommand, nkey, &append_stats, c)) {
+  654.             if (c->stats.buffer == NULL) {
+  655.                 out_of_memory(c, "SERVER_ERROR Out of memory generating stats");
+                       ^
+  656.             } else {
+  657.                 write_and_free(c, c->stats.buffer, c->stats.offset);
+
+#66
+proto_bin.c:641: error: Buffer Overrun L3
+  Offset added: [1, +oo] Size: [0, +oo] by call to `append_stats`.
+  639.                 return;
+  640.             } else {
+  641.                 append_stats("detailed", strlen("detailed"), dump_buf, len, c);
+                       ^
+  642.                 free(dump_buf);
+  643.             }
+
+#67
+proto_bin.c:624: error: Integer Overflow L2
+  ([0, +oo] - 1):unsigned64 by call to `server_stats`.
+  622.     if (nkey == 0) {
+  623.         /* request all statistics */
+  624.         server_stats(&append_stats, c);
+               ^
+  625.         (void)get_stats(NULL, 0, &append_stats, c);
+  626.     } else if (strncmp(subcommand, "reset", 5) == 0) {
+
+#68
+proto_bin.c:624: error: Integer Overflow L2
+  ([0, +oo] - 60):unsigned32 by call to `server_stats`.
+  622.     if (nkey == 0) {
+  623.         /* request all statistics */
+  624.         server_stats(&append_stats, c);
+               ^
+  625.         (void)get_stats(NULL, 0, &append_stats, c);
+  626.     } else if (strncmp(subcommand, "reset", 5) == 0) {
+
+#69
+slabs.c:630: error: Integer Overflow L2
+  ([`size` + 1, +oo] - [`size`, `size` + 8]):unsigned64.
+  628.         mem_current = ((char*)mem_current) + size;
+  629.         if (size < mem_avail) {
+  630.             mem_avail -= size;
+                   ^
+  631.         } else {
+  632.             mem_avail = 0;
+
+#70
+extstore.c:647: error: Null Dereference
+  pointer `tail` last assigned on line 631 could be null and is dereferenced at line 647, column 9.
+  645.     } else {
+  646.         // Have to put the *io stack at the end of current queue.
+  647.         assert(tail->next == NULL);
+               ^
+  648.         assert(t->queue_tail->next == NULL);
+  649.         t->queue_tail->next = io;
+
+#71
+storage.c:739: error: Null Dereference
+  pointer `&st->page_data` last assigned on line 738 could be null and is dereferenced by call to `extstore_get_page_data()` at line 739, column 5.
+  737.             NULL, rate, frag_limit);
+  738.     st.page_data = calloc(st.page_count, sizeof(struct extstore_page_data));
+  739.     extstore_get_page_data(storage, &st);
+           ^
+  740. 
+  741.     // find oldest page by version that violates the constraint
+
+#72
+proto_text.c:728: error: Buffer Overrun L2
+  Offset added: [2, 1022] Size: 24 by call to `out_string`.
+  726.     if (strcmp(command, "on") == 0) {
+  727.         settings.detail_enabled = 1;
+  728.         out_string(c, "OK");
+               ^
+  729.     }
+  730.     else if (strcmp(command, "off") == 0) {
+
+#73
+proto_text.c:740: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 360 by call to `out_string`.
+  738.     }
+  739.     else {
+  740.         out_string(c, "CLIENT_ERROR usage: stats detail on|off|dump");
+               ^
+  741.     }
+  742. }
+
+#74
+proto_text.c:791: error: Buffer Overrun L2
+  Offset added: [28, 1022] Size: 232 by call to `out_string`.
+  789. 
+  790.         if (id >= MAX_NUMBER_OF_SLAB_CLASSES) {
+  791.             out_string(c, "CLIENT_ERROR Illegal slab id");
+                   ^
+  792.             return;
+  793.         }
+
+#75
+proto_text.c:749: error: Buffer Overrun L2
+  Offset added: [29, 1022] Size: 240 by call to `out_string`.
+  747. 
+  748.     if (ntokens < 2) {
+  749.         out_string(c, "CLIENT_ERROR bad command line");
+               ^
+  750.         return;
+  751.     }
+
+#76
+proto_text.c:780: error: Buffer Overrun L2
+  Offset added: [29, 1022] Size: 240 by call to `out_string`.
+  778. 
+  779.         if (ntokens < 5) {
+  780.             out_string(c, "CLIENT_ERROR bad command line");
+                   ^
+  781.             return;
+  782.         }
+
+#77
+proto_text.c:786: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 296 by call to `out_string`.
+  784.         if (!safe_strtoul(tokens[2].value, &id) ||
+  785.             !safe_strtoul(tokens[3].value, &limit)) {
+  786.             out_string(c, "CLIENT_ERROR bad command line format");
+                   ^
+  787.             return;
+  788.         }
+
+#78
+proto_text.c:813: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 328 by call to `out_of_memory`.
+  811.         if (get_stats(subcommand, strlen(subcommand), &append_stats, c)) {
+  812.             if (c->stats.buffer == NULL) {
+  813.                 out_of_memory(c, "SERVER_ERROR out of memory writing stats");
+                       ^
+  814.             } else {
+  815.                 write_and_free(c, c->stats.buffer, c->stats.offset);
+
+#79
+proto_text.c:828: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 328 by call to `out_of_memory`.
+  826. 
+  827.     if (c->stats.buffer == NULL) {
+  828.         out_of_memory(c, "SERVER_ERROR out of memory writing stats");
+               ^
+  829.     } else {
+  830.         write_and_free(c, c->stats.buffer, c->stats.offset);
+
+#80
+proto_text.c:758: error: Buffer Overrun L2
+  Offset added: [5, 1022] Size: 48 by call to `out_string`.
+  756.     } else if (strcmp(subcommand, "reset") == 0) {
+  757.         stats_reset();
+  758.         out_string(c, "RESET");
+               ^
+  759.         return;
+  760.     } else if (strcmp(subcommand, "detail") == 0) {
+
+#81
+proto_text.c:754: error: Integer Overflow L2
+  ([0, +oo] - 1):unsigned64 by call to `server_stats`.
+  752. 
+  753.     if (ntokens == 2) {
+  754.         server_stats(&append_stats, c);
+               ^
+  755.         (void)get_stats(NULL, 0, &append_stats, c);
+  756.     } else if (strcmp(subcommand, "reset") == 0) {
+
+#82
+proto_text.c:754: error: Integer Overflow L2
+  ([0, +oo] - 60):unsigned32 by call to `server_stats`.
+  752. 
+  753.     if (ntokens == 2) {
+  754.         server_stats(&append_stats, c);
+               ^
+  755.         (void)get_stats(NULL, 0, &append_stats, c);
+  756.     } else if (strcmp(subcommand, "reset") == 0) {
+
+#83
+items.c:818: error: Uninitialized Value
+  The value read from lru_size_map[_] was never initialized.
+  816.         APPEND_NUM_FMT_STAT(fmt, n, "number", "%u", size);
+  817.         if (settings.lru_maintainer_thread) {
+  818.             APPEND_NUM_FMT_STAT(fmt, n, "number_hot", "%u", lru_size_map[0]);
+                   ^
+  819.             APPEND_NUM_FMT_STAT(fmt, n, "number_warm", "%u", lru_size_map[1]);
+  820.             APPEND_NUM_FMT_STAT(fmt, n, "number_cold", "%u", lru_size_map[2]);
+
+#84
+items.c:819: error: Uninitialized Value
+  The value read from lru_size_map[_] was never initialized.
+  817.         if (settings.lru_maintainer_thread) {
+  818.             APPEND_NUM_FMT_STAT(fmt, n, "number_hot", "%u", lru_size_map[0]);
+  819.             APPEND_NUM_FMT_STAT(fmt, n, "number_warm", "%u", lru_size_map[1]);
+                   ^
+  820.             APPEND_NUM_FMT_STAT(fmt, n, "number_cold", "%u", lru_size_map[2]);
+  821.             if (settings.temp_lru) {
+
+#85
+items.c:820: error: Uninitialized Value
+  The value read from lru_size_map[_] was never initialized.
+  818.             APPEND_NUM_FMT_STAT(fmt, n, "number_hot", "%u", lru_size_map[0]);
+  819.             APPEND_NUM_FMT_STAT(fmt, n, "number_warm", "%u", lru_size_map[1]);
+  820.             APPEND_NUM_FMT_STAT(fmt, n, "number_cold", "%u", lru_size_map[2]);
+                   ^
+  821.             if (settings.temp_lru) {
+  822.                 APPEND_NUM_FMT_STAT(fmt, n, "number_temp", "%u", lru_size_map[3]);
+
+#86
+items.c:822: error: Uninitialized Value
+  The value read from lru_size_map[_] was never initialized.
+  820.             APPEND_NUM_FMT_STAT(fmt, n, "number_cold", "%u", lru_size_map[2]);
+  821.             if (settings.temp_lru) {
+  822.                 APPEND_NUM_FMT_STAT(fmt, n, "number_temp", "%u", lru_size_map[3]);
+                       ^
+  823.             }
+  824.             APPEND_NUM_FMT_STAT(fmt, n, "age_hot", "%u", age_hot);
+
+#87
+storage.c:856: error: Uninitialized Value
+  The value read from io.offset was never initialized.
+  854.                         hdr->page_version = io.page_version;
+  855.                         hdr->page_id = io.page_id;
+  856.                         hdr->offset = io.offset;
+                               ^
+  857.                         rescues++;
+  858.                     } else {
+
+#88
+storage.c:875: error: Uninitialized Value
+  The value read from io.offset was never initialized.
+  873.                             new_hdr->page_version = io.page_version;
+  874.                             new_hdr->page_id = io.page_id;
+  875.                             new_hdr->offset = io.offset;
+                                   ^
+  876. 
+  877.                             // replace the item in the hash table.
+
+#89
+storage.c:855: error: Uninitialized Value
+  The value read from io.page_id was never initialized.
+  853.                     if (it->refcount == 2) {
+  854.                         hdr->page_version = io.page_version;
+  855.                         hdr->page_id = io.page_id;
+                               ^
+  856.                         hdr->offset = io.offset;
+  857.                         rescues++;
+
+#90
+storage.c:874: error: Uninitialized Value
+  The value read from io.page_id was never initialized.
+  872.                             item_hdr *new_hdr = (item_hdr *) ITEM_data(new_it);
+  873.                             new_hdr->page_version = io.page_version;
+  874.                             new_hdr->page_id = io.page_id;
+                                   ^
+  875.                             new_hdr->offset = io.offset;
+  876. 
+
+#91
+storage.c:854: error: Uninitialized Value
+  The value read from io.page_version was never initialized.
+  852.                 if (do_update) {
+  853.                     if (it->refcount == 2) {
+  854.                         hdr->page_version = io.page_version;
+                               ^
+  855.                         hdr->page_id = io.page_id;
+  856.                         hdr->offset = io.offset;
+
+#92
+storage.c:873: error: Uninitialized Value
+  The value read from io.page_version was never initialized.
+  871.                             // copy the hdr data.
+  872.                             item_hdr *new_hdr = (item_hdr *) ITEM_data(new_it);
+  873.                             new_hdr->page_version = io.page_version;
+                                   ^
+  874.                             new_hdr->page_id = io.page_id;
+  875.                             new_hdr->offset = io.offset;
+
+#93
+proto_text.c:893: error: Buffer Overrun L2
+  Offset added: [2, 1022] Size: 24 by call to `out_string`.
+  891.         conn_set_state(c, conn_new_cmd);
+  892.     } else {
+  893.         out_string(c, "EN");
+               ^
+  894.     }
+  895.     pthread_mutex_lock(&c->thread->stats.mutex);
+
+#94
+proto_text.c:840: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 296 by call to `out_string`.
+  838. 
+  839.     if (ntokens < 3 || tokens[KEY_TOKEN].length > KEY_MAX_LENGTH) {
+  840.         out_string(c, "CLIENT_ERROR bad command line format");
+               ^
+  841.         return;
+  842.     }
+
+#95
+memcached.c:868: error: Integer Overflow L2
+  ([0, +oo] - 1):unsigned8 by call to `resp_finish`.
+  866.                 break;
+  867.             }
+  868.             resp = resp_finish(c, resp);
+                          ^
+  869.         }
+  870.         conn_io_queue_reset(c);
+
+#96
+memcached.c:868: error: Integer Overflow L2
+  ([0, `c->thread->stats.response_obj_bytes`] - 16384):unsigned64 by call to `resp_finish`.
+  866.                 break;
+  867.             }
+  868.             resp = resp_finish(c, resp);
+                          ^
+  869.         }
+  870.         conn_io_queue_reset(c);
+
+#97
+memcached.c:868: error: Integer Overflow L2
+  ([0, `c->thread->stats.response_obj_count`] - 1):unsigned64 by call to `resp_finish`.
+  866.                 break;
+  867.             }
+  868.             resp = resp_finish(c, resp);
+                          ^
+  869.         }
+  870.         conn_io_queue_reset(c);
+
+#98
+slabs.c:929: error: Integer Overflow L2
+  ([0, +oo] - 1):unsigned64 by call to `do_item_unlink`.
+  927.                             STORAGE_delete(storage, it);
+  928.                             pthread_mutex_unlock(&slabs_lock);
+  929.                             do_item_unlink(it, hv);
+                                   ^
+  930.                             pthread_mutex_lock(&slabs_lock);
+  931.                         }
+
+#99
+storage.c:990: error: Uninitialized Value
+  The value read from wrap.miss was never initialized.
+  988. 
+  989.                 extstore_submit(storage, &wrap.io);
+  990.             } else if (wrap.miss) {
+                              ^
+  991.                 LOGGER_LOG(l, LOG_SYSEVENTS, LOGGER_COMPACT_ABORT,
+  992.                         NULL, page_id);
+
+#100
+thread.c:951: error: Integer Overflow L2
+  ([0, +oo] - 1):unsigned64 by call to `do_item_unlink`.
+  949.     hv = hash(ITEM_key(item), item->nkey);
+  950.     item_lock(hv);
+  951.     do_item_unlink(item, hv);
+           ^
+  952.     item_unlock(hv);
+  953. }
+
+#101
+items.c:1019: error: Integer Overflow L2
+  ([0, +oo] - 1):unsigned64 by call to `do_item_unlink`.
+  1017.         was_found = 1;
+  1018.         if (item_is_flushed(it)) {
+  1019.             do_item_unlink(it, hv);
+                    ^
+  1020.             STORAGE_delete(t->storage, it);
+  1021.             do_item_remove(it);
+
+#102
+thread.c:1048: error: Buffer Overrun L2
+  Offset: [0, 255] Size: 64.
+  1046.             stats->lru_hits[sid] +=
+  1047.                 threads[ii].stats.lru_hits[sid];
+  1048.             stats->slab_stats[CLEAR_LRU(sid)].get_hits +=
+                    ^
+  1049.                 threads[ii].stats.lru_hits[sid];
+  1050.         }
+
+#103
+proto_text.c:1079: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 296 by call to `out_errstring`.
+  1077.     // FIXME: do we move this check to after preparse?
+  1078.     if (tokens[KEY_TOKEN].length > KEY_MAX_LENGTH) {
+  1079.         out_errstring(c, "CLIENT_ERROR bad command line format");
+                ^
+  1080.         return;
+  1081.     }
+
+#104
+proto_text.c:1095: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 296 by call to `out_errstring`.
+  1093.     // we pass in the first token that should be a flag.
+  1094.     if (_meta_flag_preparse(tokens, 2, &of, &errstr) != 0) {
+  1095.         out_errstring(c, errstr);
+                ^
+  1096.         return;
+  1097.     }
+
+#105
+proto_text.c:1088: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 320 by call to `out_errstring`.
+  1086.     if (ntokens > MFLAG_MAX_OPT_LENGTH) {
+  1087.         // TODO: ensure the command tokenizer gives us at least this many
+  1088.         out_errstring(c, "CLIENT_ERROR options flags are too long");
+                ^
+  1089.         return;
+  1090.     }
+
+#106
+proto_text.c:1075: error: Buffer Overrun L2
+  Offset added: [5, 1022] Size: 48 by call to `out_string`.
+  1073.     char *p = resp->wbuf;
+  1074. 
+  1075.     WANT_TOKENS_MIN(ntokens, 3);
+            ^
+  1076. 
+  1077.     // FIXME: do we move this check to after preparse?
+
+#107
+proto_text.c:1376: error: Buffer Overrun L2
+  Offset added: [min(33, `errstr[*].strlen`), 1022] Size: 280 by call to `out_errstring`.
+  1374.         }
+  1375.     }
+  1376.     out_errstring(c, errstr);
+            ^
+  1377. }
+  1378. 
+
+#108
+proto_text.c:1135: error: Uninitialized Value
+  The value read from hv was never initialized.
+  1133.             memcpy(ITEM_data(it), "\r\n", 2);
+  1134.             // NOTE: This initializes the CAS value.
+  1135.             do_item_link(it, hv);
+                    ^
+  1136.             item_created = true;
+  1137.         }
+
+#109
+proto_text.c:1309: error: Uninitialized Value
+  The value read from hv was never initialized.
+  1307.         // Delayed bump so we could get fetched/last access time pre-update.
+  1308.         if (!of.no_update && it != NULL) {
+  1309.             do_item_bump(c->thread, it, hv);
+                    ^
+  1310.         }
+  1311.         item_unlock(hv);
+
+#110
+proto_text.c:1311: error: Uninitialized Value
+  The value read from hv was never initialized.
+  1309.             do_item_bump(c->thread, it, hv);
+  1310.         }
+  1311.         item_unlock(hv);
+                ^
+  1312.     }
+  1313. 
+
+#111
+proto_text.c:1373: error: Uninitialized Value
+  The value read from hv was never initialized.
+  1371.         do_item_remove(it);
+  1372.         if (of.locked) {
+  1373.             item_unlock(hv);
+                    ^
+  1374.         }
+  1375.     }
+
+#112
+items.c:1085: error: Integer Overflow L2
+  ([0, +oo] - 60):unsigned32 by call to `do_item_update`.
+  1083.     } else {
+  1084.         it->it_flags |= ITEM_FETCHED;
+  1085.         do_item_update(it);
+                ^
+  1086.     }
+  1087. }
+
+#113
+storage.c:1079: error: Null Dereference
+  pointer `cf` last assigned on line 1078 could be null and is dereferenced at line 1079, column 5.
+  1077.     // First arg is the filepath.
+  1078.     cf = calloc(1, sizeof(struct extstore_conf_file));
+  1079.     cf->file = strdup(p);
+            ^
+  1080. 
+  1081.     p = strtok_r(NULL, ":", &b);
+
+#114
+proto_bin.c:1131: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 344 by call to `out_of_memory`.
+  1129.             status = TOO_LARGE;
+  1130.         } else {
+  1131.             out_of_memory(c, "SERVER_ERROR Out of memory allocating item");
+                    ^
+  1132.             /* This error generating method eats the swallow value. Add here. */
+  1133.             c->sbytes = vlen;
+
+#115
+items.c:1192: error: Integer Overflow L2
+  ([0, +oo] - 1):unsigned32 by call to `do_item_unlink_q`.
+  1190.                     if (cur_lru == WARM_LRU) {
+  1191.                         itemstats[id].moves_within_lru++;
+  1192.                         do_item_unlink_q(search);
+                                ^
+  1193.                         do_item_link_q(search);
+  1194.                         do_item_remove(search);
+
+#116
+items.c:1152: error: Integer Overflow L2
+  ([0, +oo] - 1):unsigned64 by call to `do_item_unlink_nolock`.
+  1150.                 /* This will call item_remove -> item_free since refcnt is 1 */
+  1151.                 STORAGE_delete(ext_storage, search);
+  1152.                 do_item_unlink_nolock(search, hv);
+                        ^
+  1153.                 item_trylock_unlock(hold_lock);
+  1154.                 continue;
+
+#117
+storage.c:1177: error: Null Dereference
+  pointer `cf` last assigned on line 1162 could be null and is dereferenced at line 1177, column 5.
+  1175.     s->ext_page_size = 1024 * 1024 * 64;
+  1176.     s->ext_io_threadcount = 1;
+  1177.     cf->ext_cf.page_size = settings.ext_page_size;
+            ^
+  1178.     cf->ext_cf.wbuf_size = settings.ext_wbuf_size;
+  1179.     cf->ext_cf.io_threadcount = settings.ext_io_threadcount;
+
+#118
+proto_bin.c:1218: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 344 by call to `out_of_memory`.
+  1216.             write_bin_error(c, PROTOCOL_BINARY_RESPONSE_E2BIG, NULL, vlen);
+  1217.         } else {
+  1218.             out_of_memory(c, "SERVER_ERROR Out of memory allocating item");
+                    ^
+  1219.             /* OOM calls eat the swallow value. Add here. */
+  1220.             c->sbytes = vlen;
+
+#119
+memcached.c:1292: error: Buffer Overrun L2
+  Offset added: [min(33, `str->strlen`), 1022] Size: 34.
+  1290.     }
+  1291. 
+  1292.     memcpy(resp->wbuf, str, len);
+            ^
+  1293.     memcpy(resp->wbuf + len, "\r\n", 2);
+  1294.     resp_add_iov(resp, resp->wbuf, len + 2);
+
+#120
+proto_bin.c:1319: error: Integer Overflow L2
+  ([0, +oo] - 1):unsigned64 by call to `do_item_unlink`.
+  1317.             c->thread->stats.slab_stats[ITEM_clsid(it)].delete_hits++;
+  1318.             pthread_mutex_unlock(&c->thread->stats.mutex);
+  1319.             do_item_unlink(it, hv);
+                    ^
+  1320.             STORAGE_delete(c->thread->storage, it);
+  1321.             write_bin_response(c, NULL, 0, 0, 0);
+
+#121
+items.c:1368: error: Dead Store
+  The value written to &be (type lru_bump_entry*) is never used.
+  1366. 
+  1367.         pthread_mutex_lock(&b->mutex);
+  1368.         be = (lru_bump_entry *) bipbuf_poll(b->buf, size);
+                ^
+  1369.         pthread_mutex_unlock(&b->mutex);
+  1370.     }
+
+#122
+items.c:1360: error: Integer Overflow L2
+  ([0, +oo] - 60):unsigned32 by call to `do_item_update`.
+  1358.         while (todo) {
+  1359.             item_lock(be->hv);
+  1360.             do_item_update(be->it);
+                    ^
+  1361.             do_item_remove(be->it);
+  1362.             item_unlock(be->hv);
+
+#123
+proto_text.c:1408: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 288 by call to `out_errstring`.
+  1406. 
+  1407.     if (ntokens > MFLAG_MAX_OPT_LENGTH) {
+  1408.         out_errstring(c, "CLIENT_ERROR options flags too long");
+                ^
+  1409.         return;
+  1410.     }
+
+#124
+proto_text.c:1398: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 296 by call to `out_errstring`.
+  1396.     // TODO: most of this is identical to mget.
+  1397.     if (tokens[KEY_TOKEN].length > KEY_MAX_LENGTH) {
+  1398.         out_errstring(c, "CLIENT_ERROR bad command line format");
+                ^
+  1399.         return;
+  1400.     }
+
+#125
+proto_text.c:1403: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 296 by call to `out_errstring`.
+  1401. 
+  1402.     if (ntokens == 3) {
+  1403.         out_errstring(c, "CLIENT_ERROR bad command line format");
+                ^
+  1404.         return;
+  1405.     }
+
+#126
+proto_text.c:1417: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 296 by call to `out_errstring`.
+  1415. 
+  1416.     if (!safe_strtol(tokens[KEY_TOKEN + 1].value, (int32_t*)&vlen)) {
+  1417.         out_errstring(c, "CLIENT_ERROR bad command line format");
+                ^
+  1418.         return;
+  1419.     }
+
+#127
+proto_text.c:1394: error: Buffer Overrun L2
+  Offset added: [5, 1022] Size: 48 by call to `out_string`.
+  1392.     rel_time_t exptime = 0;
+  1393. 
+  1394.     WANT_TOKENS_MIN(ntokens, 3);
+            ^
+  1395. 
+  1396.     // TODO: most of this is identical to mget.
+
+#128
+proto_text.c:1589: error: Buffer Overrun L2
+  Offset added: [min(33, `errstr[*].strlen`), 1022] Size: [280, 336] by call to `out_errstring`.
+  1587.     // Note: no errors possible after the item was successfully allocated.
+  1588.     // So we're just looking at dumping error codes and returning.
+  1589.     out_errstring(c, errstr);
+            ^
+  1590.     // TODO: pass state in? else switching twice meh.
+  1591.     conn_set_state(c, conn_swallow);
+
+#129
+proto_text.c:1391: error: Dead Store
+  The value written to &p (type char*) is never used.
+  1389.     assert(c != NULL);
+  1390.     mc_resp *resp = c->resp;
+  1391.     char *p = resp->wbuf;
+            ^
+  1392.     rel_time_t exptime = 0;
+  1393. 
+
+#130
+proto_text.c:1546: error: Integer Overflow L2
+  ([0, +oo] - 1):unsigned64 by call to `do_item_unlink`.
+  1544.         it = item_get_locked(key, nkey, c->thread, DONT_UPDATE, &hv);
+  1545.         if (it) {
+  1546.             do_item_unlink(it, hv);
+                    ^
+  1547.             STORAGE_delete(c->thread->storage, it);
+  1548.             do_item_remove(it);
+
+#131
+items.c:1593: error: Dead Store
+  The value written to &last_sleep (type unsigned int) is never used.
+  1591.     int i;
+  1592.     useconds_t to_sleep = MIN_LRU_MAINTAINER_SLEEP;
+  1593.     useconds_t last_sleep = MIN_LRU_MAINTAINER_SLEEP;
+            ^
+  1594.     rel_time_t last_crawler_check = 0;
+  1595.     rel_time_t last_automove_check = 0;
+
+#132
+proto_text.c:1716: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 280 by call to `out_errstring`.
+  1714.     return;
+  1715. error:
+  1716.     out_errstring(c, errstr);
+            ^
+  1717. }
+  1718. 
+
+#133
+proto_text.c:1616: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 288 by call to `out_string`.
+  1614. 
+  1615.     if (ntokens > MFLAG_MAX_OPT_LENGTH) {
+  1616.         out_string(c, "CLIENT_ERROR options flags too long");
+                ^
+  1617.         return;
+  1618.     }
+
+#134
+proto_text.c:1611: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 296 by call to `out_string`.
+  1609.     // TODO: most of this is identical to mget.
+  1610.     if (tokens[KEY_TOKEN].length > KEY_MAX_LENGTH) {
+  1611.         out_string(c, "CLIENT_ERROR bad command line format");
+                ^
+  1612.         return;
+  1613.     }
+
+#135
+proto_text.c:1607: error: Buffer Overrun L2
+  Offset added: [5, 1022] Size: 48 by call to `out_string`.
+  1605.     char *p = resp->wbuf + 2;
+  1606. 
+  1607.     WANT_TOKENS_MIN(ntokens, 3);
+            ^
+  1608. 
+  1609.     // TODO: most of this is identical to mget.
+
+#136
+proto_text.c:1688: error: Integer Overflow L2
+  ([0, +oo] - 1):unsigned64 by call to `do_item_unlink`.
+  1686. 
+  1687.             LOGGER_LOG(NULL, LOG_DELETIONS, LOGGER_DELETIONS, it, LOG_TYPE_META_DELETE);
+  1688.             do_item_unlink(it, hv);
+                    ^
+  1689.             STORAGE_delete(c->thread->storage, it);
+  1690.             if (c->noreply)
+
+#137
+proto_text.c:1747: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 288 by call to `out_string`.
+  1745. 
+  1746.     if (ntokens > MFLAG_MAX_OPT_LENGTH) {
+  1747.         out_string(c, "CLIENT_ERROR options flags too long");
+                ^
+  1748.         return;
+  1749.     }
+
+#138
+proto_text.c:1742: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 296 by call to `out_string`.
+  1740.     // TODO: most of this is identical to mget.
+  1741.     if (tokens[KEY_TOKEN].length > KEY_MAX_LENGTH) {
+  1742.         out_string(c, "CLIENT_ERROR bad command line format");
+                ^
+  1743.         return;
+  1744.     }
+
+#139
+proto_text.c:1754: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 312 by call to `out_errstring`.
+  1752.     // we pass in the first token that should be a flag.
+  1753.     if (_meta_flag_preparse(tokens, 2, &of, &errstr) != 0) {
+  1754.         out_errstring(c, "CLIENT_ERROR invalid or duplicate flag");
+                ^
+  1755.         return;
+  1756.     }
+
+#140
+proto_text.c:1738: error: Buffer Overrun L2
+  Offset added: [5, 1022] Size: 48 by call to `out_string`.
+  1736.     item *it = NULL; // item returned by do_add_delta.
+  1737. 
+  1738.     WANT_TOKENS_MIN(ntokens, 3);
+            ^
+  1739. 
+  1740.     // TODO: most of this is identical to mget.
+
+#141
+proto_text.c:1940: error: Buffer Overrun L2
+  Offset added: [min(26, `errstr[*].strlen`), 1022] Size: [216, 488] by call to `out_errstring`.
+  1938.     if (locked)
+  1939.         item_unlock(hv);
+  1940.     out_errstring(c, errstr);
+            ^
+  1941. }
+  1942. 
+
+#142
+memcached.c:1760: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 328 by call to `out_of_memory`.
+  1758.         conn_set_state(c, conn_new_cmd);
+  1759.     } else {
+  1760.         out_of_memory(c, "SERVER_ERROR out of memory writing stats");
+                ^
+  1761.     }
+  1762. }
+
+#143
+proto_text.c:1959: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 296 by call to `out_string`.
+  1957. 
+  1958.     if (tokens[KEY_TOKEN].length > KEY_MAX_LENGTH) {
+  1959.         out_string(c, "CLIENT_ERROR bad command line format");
+                ^
+  1960.         return;
+  1961.     }
+
+#144
+proto_text.c:1969: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 296 by call to `out_string`.
+  1967.            && safe_strtol(tokens[3].value, &exptime_int)
+  1968.            && safe_strtol(tokens[4].value, (int32_t *)&vlen))) {
+  1969.         out_string(c, "CLIENT_ERROR bad command line format");
+                ^
+  1970.         return;
+  1971.     }
+
+#145
+proto_text.c:2004: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 336 by call to `out_of_memory`.
+  2002.             pthread_mutex_unlock(&c->thread->stats.mutex);
+  2003.         } else {
+  2004.             out_of_memory(c, "SERVER_ERROR out of memory storing object");
+                    ^
+  2005.             status = NO_MEMORY;
+  2006.             pthread_mutex_lock(&c->thread->stats.mutex);
+
+#146
+proto_text.c:2058: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 296 by call to `out_string`.
+  2056. 
+  2057.     if (tokens[KEY_TOKEN].length > KEY_MAX_LENGTH) {
+  2058.         out_string(c, "CLIENT_ERROR bad command line format");
+                ^
+  2059.         return;
+  2060.     }
+
+#147
+proto_text.c:2066: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 304 by call to `out_string`.
+  2064. 
+  2065.     if (!safe_strtol(tokens[2].value, &exptime_int)) {
+  2066.         out_string(c, "CLIENT_ERROR invalid exptime argument");
+                ^
+  2067.         return;
+  2068.     }
+
+#148
+proto_text.c:2078: error: Buffer Overrun L2
+  Offset added: [7, 1022] Size: 64 by call to `out_string`.
+  2076.         pthread_mutex_unlock(&c->thread->stats.mutex);
+  2077. 
+  2078.         out_string(c, "TOUCHED");
+                ^
+  2079.         item_remove(it);
+  2080.     } else {
+
+#149
+proto_text.c:2086: error: Buffer Overrun L2
+  Offset added: [9, 1022] Size: 80 by call to `out_string`.
+  2084.         pthread_mutex_unlock(&c->thread->stats.mutex);
+  2085. 
+  2086.         out_string(c, "NOT_FOUND");
+                ^
+  2087.     }
+  2088. }
+
+#150
+proto_text.c:2115: error: Buffer Overrun L2
+  Offset added: [0, 1022] Size: 192 by call to `out_string`.
+  2113.     switch(add_delta(c->thread, key, nkey, incr, delta, temp, NULL)) {
+  2114.     case OK:
+  2115.         out_string(c, temp);
+                ^
+  2116.         break;
+  2117.     case NON_NUMERIC:
+
+#151
+proto_text.c:2121: error: Buffer Overrun L2
+  Offset added: [26, 1022] Size: 216 by call to `out_of_memory`.
+  2119.         break;
+  2120.     case EOM:
+  2121.         out_of_memory(c, "SERVER_ERROR out of memory");
+                ^
+  2122.         break;
+  2123.     case DELTA_ITEM_NOT_FOUND:
+
+#152
+proto_text.c:2101: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 296 by call to `out_string`.
+  2099. 
+  2100.     if (tokens[KEY_TOKEN].length > KEY_MAX_LENGTH) {
+  2101.         out_string(c, "CLIENT_ERROR bad command line format");
+                ^
+  2102.         return;
+  2103.     }
+
+#153
+proto_text.c:2109: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 352 by call to `out_string`.
+  2107. 
+  2108.     if (!safe_strtoull(tokens[2].value, &delta)) {
+  2109.         out_string(c, "CLIENT_ERROR invalid numeric delta argument");
+                ^
+  2110.         return;
+  2111.     }
+
+#154
+proto_text.c:2132: error: Buffer Overrun L2
+  Offset added: [9, 1022] Size: 80 by call to `out_string`.
+  2130.         pthread_mutex_unlock(&c->thread->stats.mutex);
+  2131. 
+  2132.         out_string(c, "NOT_FOUND");
+                ^
+  2133.         break;
+  2134.     case DELTA_ITEM_CAS_MISMATCH:
+
+#155
+proto_text.c:2165: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 296 by call to `out_string`.
+  2163. 
+  2164.     if(nkey > KEY_MAX_LENGTH) {
+  2165.         out_string(c, "CLIENT_ERROR bad command line format");
+                ^
+  2166.         return;
+  2167.     }
+
+#156
+proto_text.c:2154: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 552 by call to `out_string`.
+  2152.             || (ntokens == 5 && hold_is_zero && sets_noreply);
+  2153.         if (!valid) {
+  2154.             out_string(c, "CLIENT_ERROR bad command line format.  "
+                    ^
+  2155.                        "Usage: delete <key> [noreply]");
+  2156.             return;
+
+#157
+proto_text.c:2184: error: Buffer Overrun L2
+  Offset added: [7, 1022] Size: 64 by call to `out_string`.
+  2182.         STORAGE_delete(c->thread->storage, it);
+  2183.         do_item_remove(it);      /* release our reference */
+  2184.         out_string(c, "DELETED");
+                ^
+  2185.     } else {
+  2186.         pthread_mutex_lock(&c->thread->stats.mutex);
+
+#158
+proto_text.c:2190: error: Buffer Overrun L2
+  Offset added: [9, 1022] Size: 80 by call to `out_string`.
+  2188.         pthread_mutex_unlock(&c->thread->stats.mutex);
+  2189. 
+  2190.         out_string(c, "NOT_FOUND");
+                ^
+  2191.     }
+  2192.     item_unlock(hv);
+
+#159
+proto_text.c:2181: error: Integer Overflow L2
+  ([0, +oo] - 1):unsigned64 by call to `do_item_unlink`.
+  2179.         pthread_mutex_unlock(&c->thread->stats.mutex);
+  2180.         LOGGER_LOG(NULL, LOG_DELETIONS, LOGGER_DELETIONS, it, LOG_TYPE_DELETE);
+  2181.         do_item_unlink(it, hv);
+                ^
+  2182.         STORAGE_delete(c->thread->storage, it);
+  2183.         do_item_remove(it);      /* release our reference */
+
+#160
+proto_text.c:2207: error: Buffer Overrun L2
+  Offset added: [2, 1022] Size: 24 by call to `out_string`.
+  2205.     }
+  2206.     settings.verbose = level > MAX_VERBOSITY_LEVEL ? MAX_VERBOSITY_LEVEL : level;
+  2207.     out_string(c, "OK");
+            ^
+  2208.     return;
+  2209. }
+
+#161
+proto_text.c:2203: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 296 by call to `out_string`.
+  2201. 
+  2202.     if (!safe_strtoul(tokens[1].value, (uint32_t*)&level)) {
+  2203.         out_string(c, "CLIENT_ERROR bad command line format");
+                ^
+  2204.         return;
+  2205.     }
+
+#162
+proto_text.c:2231: error: Buffer Overrun L2
+  Offset added: [2, 1022] Size: 24 by call to `out_string`.
+  2229.         out_string(c, "ERROR");
+  2230.     } else {
+  2231.         out_string(c, "OK");
+                ^
+  2232.     }
+  2233. }
+
+#163
+proto_text.c:2229: error: Buffer Overrun L2
+  Offset added: [5, 1022] Size: 48 by call to `out_string`.
+  2227. 
+  2228.     if (allowed) {
+  2229.         out_string(c, "ERROR");
+                ^
+  2230.     } else {
+  2231.         out_string(c, "OK");
+
+#164
+proto_text.c:2253: error: Buffer Overrun L2
+  Offset added: [2, 1022] Size: 24 by call to `out_string`.
+  2251.         current_time += delta;
+  2252.     }
+  2253.     out_string(c, "OK");
+            ^
+  2254. }
+  2255. #endif
+
+#165
+proto_text.c:2247: error: Buffer Overrun L2
+  Offset added: [5, 1022] Size: 48 by call to `out_string`.
+  2245.         int64_t time_delta = 0;
+  2246.         if (!safe_strtoll(tokens[1].value, &time_delta)) {
+  2247.             out_string(c, "ERROR");
+                    ^
+  2248.             return;
+  2249.         }
+
+#166
+proto_text.c:2285: error: Buffer Overrun L2
+  Offset added: [2, 1022] Size: 24 by call to `out_string`.
+  2283.         }
+  2284.     }
+  2285.     out_string(c, "OK");
+            ^
+  2286.     return;
+  2287. }
+
+#167
+proto_text.c:2273: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 296 by call to `out_string`.
+  2271.     } else {
+  2272.         if (!safe_strtoul(tokens[2].value, (uint32_t*)&level)) {
+  2273.             out_string(c, "CLIENT_ERROR bad command line format");
+                    ^
+  2274.             return;
+  2275.         }
+
+#168
+proto_text.c:2267: error: Buffer Overrun L2
+  Offset added: [5, 1022] Size: 48 by call to `out_string`.
+  2265.     if (strcmp(tokens[2].value, "ratio") == 0) {
+  2266.         if (ntokens < 5 || !safe_strtod(tokens[3].value, &ratio)) {
+  2267.             out_string(c, "ERROR");
+                    ^
+  2268.             return;
+  2269.         }
+
+#169
+memcached.c:2336: error: Integer Overflow L2
+  ([0, +oo] - 60):unsigned32 by call to `do_item_update`.
+  2334.         memcpy(ITEM_data(it), buf, res);
+  2335.         memset(ITEM_data(it) + res, ' ', it->nbytes - res - 2);
+  2336.         do_item_update(it);
+                ^
+  2337.     } else if (it->refcount > 1) {
+  2338.         item *new_it;
+
+#170
+memcached.c:2336: error: Integer Overflow L2
+  ([0, +oo] - [49, 61]):unsigned64 by call to `do_item_update`.
+  2334.         memcpy(ITEM_data(it), buf, res);
+  2335.         memset(ITEM_data(it) + res, ' ', it->nbytes - res - 2);
+  2336.         do_item_update(it);
+                ^
+  2337.     } else if (it->refcount > 1) {
+  2338.         item *new_it;
+
+#171
+memcached.c:2336: error: Integer Overflow L2
+  ([0, +oo] - [61, 73]):unsigned64 by call to `do_item_update`.
+  2334.         memcpy(ITEM_data(it), buf, res);
+  2335.         memset(ITEM_data(it) + res, ' ', it->nbytes - res - 2);
+  2336.         do_item_update(it);
+                ^
+  2337.     } else if (it->refcount > 1) {
+  2338.         item *new_it;
+
+#172
+proto_text.c:2297: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 320 by call to `out_string`.
+  2295.     set_noreply_maybe(c, tokens, ntokens);
+  2296.     if (!settings.watch_enabled) {
+  2297.         out_string(c, "CLIENT_ERROR watch commands not allowed");
+                ^
+  2298.         return;
+  2299.     }
+
+#173
+proto_text.c:2302: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 400 by call to `out_string`.
+  2300. 
+  2301.     if (resp_has_stack(c)) {
+  2302.         out_string(c, "ERROR cannot pipeline other commands before watch");
+                ^
+  2303.         return;
+  2304.     }
+
+#174
+proto_text.c:2329: error: Buffer Overrun L2
+  Offset added: [5, 1022] Size: 48 by call to `out_string`.
+  2327.                 f |= LOG_DELETIONS;
+  2328.             } else {
+  2329.                 out_string(c, "ERROR");
+                        ^
+  2330.                 return;
+  2331.             }
+
+#175
+proto_text.c:2370: error: Buffer Overrun L2
+  Offset added: [2, 1022] Size: 24 by call to `out_string`.
+  2368.                 }
+  2369. 
+  2370.                 out_string(c, "OK");
+                        ^
+  2371.             } else {
+  2372.                 out_string(c, "MEMLIMIT_ADJUST_FAILED out of bounds or unable to adjust");
+
+#176
+proto_text.c:2361: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 440 by call to `out_string`.
+  2359.     } else {
+  2360.         if (memlimit < 8) {
+  2361.             out_string(c, "MEMLIMIT_TOO_SMALL cannot set maxbytes to less than 8m");
+                    ^
+  2362.         } else {
+  2363.             if (memlimit > 1000000000) {
+
+#177
+proto_text.c:2358: error: Buffer Overrun L2
+  Offset added: [5, 1022] Size: 48 by call to `out_string`.
+  2356. 
+  2357.     if (!safe_strtoul(tokens[1].value, &memlimit)) {
+  2358.         out_string(c, "ERROR");
+                ^
+  2359.     } else {
+  2360.         if (memlimit < 8) {
+
+#178
+proto_text.c:2403: error: Buffer Overrun L2
+  Offset added: [2, 1022] Size: 24 by call to `out_string`.
+  2401.                 settings.hot_max_factor = hot_factor;
+  2402.                 settings.warm_max_factor = factor;
+  2403.                 out_string(c, "OK");
+                        ^
+  2404.             }
+  2405.         }
+
+#179
+proto_text.c:2395: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 344 by call to `out_string`.
+  2393.         } else {
+  2394.             if (pct_hot + pct_warm > 80) {
+  2395.                 out_string(c, "ERROR hot and warm pcts must not exceed 80");
+                        ^
+  2396.             } else if (factor <= 0 || hot_factor <= 0) {
+  2397.                 out_string(c, "ERROR hot/warm age factors must be greater than 0");
+
+#180
+proto_text.c:2392: error: Buffer Overrun L2
+  Offset added: [5, 1022] Size: 48 by call to `out_string`.
+  2390.             !safe_strtod(tokens[4].value, &hot_factor) ||
+  2391.             !safe_strtod(tokens[5].value, &factor)) {
+  2392.             out_string(c, "ERROR");
+                    ^
+  2393.         } else {
+  2394.             if (pct_hot + pct_warm > 80) {
+
+#181
+proto_text.c:2491: error: Buffer Overrun L2
+  Offset added: [2, 1022] Size: 24 by call to `out_string`.
+  2489.         out_string(c, "ERROR");
+  2490.     } else {
+  2491.         out_string(c, "OK");
+                ^
+  2492.     }
+  2493. }
+
+#182
+proto_text.c:2489: error: Buffer Overrun L2
+  Offset added: [5, 1022] Size: 48 by call to `out_string`.
+  2487.     }
+  2488.     if (!ok) {
+  2489.         out_string(c, "ERROR");
+                ^
+  2490.     } else {
+  2491.         out_string(c, "OK");
+
+#183
+memcached.c:2489: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 344 by call to `out_of_memory`.
+  2487.                 }
+  2488.                 c->rbytes = 0; /* ignore what we read */
+  2489.                 out_of_memory(c, "SERVER_ERROR out of memory reading request");
+                        ^
+  2490.                 c->close_after_write = true;
+  2491.                 return READ_MEMORY_ERROR;
+
+#184
+proto_text.c:2537: error: Buffer Overrun L2
+  Offset added: [2, 1022] Size: 24 by call to `out_string`.
+  2535.         settings.oldest_live = new_oldest;
+  2536.     }
+  2537.     out_string(c, "OK");
+            ^
+  2538. }
+  2539. 
+
+#185
+proto_text.c:2507: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 280 by call to `out_string`.
+  2505.     if (!settings.flush_enabled) {
+  2506.         // flush_all is not allowed but we log it on stats
+  2507.         out_string(c, "CLIENT_ERROR flush_all not allowed");
+                ^
+  2508.         return;
+  2509.     }
+
+#186
+proto_text.c:2541: error: Buffer Overrun L2
+  Offset added: [14, 1022] Size: 120 by call to `out_string`.
+  2539. 
+  2540. static void process_version_command(conn *c) {
+  2541.     out_string(c, "VERSION " VERSION);
+            ^
+  2542. }
+  2543. 
+
+#187
+proto_text.c:2552: error: Buffer Overrun L2
+  Offset added: [27, 1022] Size: 224 by call to `out_string`.
+  2550. static void process_shutdown_command(conn *c, token_t *tokens, const size_t ntokens) {
+  2551.     if (!settings.shutdown_command) {
+  2552.         out_string(c, "ERROR: shutdown not enabled");
+                ^
+  2553.         return;
+  2554.     }
+
+#188
+proto_text.c:2565: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 280 by call to `out_string`.
+  2563.         raise(SIGUSR1);
+  2564.     } else {
+  2565.         out_string(c, "CLIENT_ERROR invalid shutdown mode");
+                ^
+  2566.     }
+  2567. }
+
+#189
+proto_text.c:2587: error: Buffer Overrun L2
+  Offset added: [2, 1022] Size: 24 by call to `out_string`.
+  2585.         switch (rv) {
+  2586.         case REASSIGN_OK:
+  2587.             out_string(c, "OK");
+                    ^
+  2588.             break;
+  2589.         case REASSIGN_RUNNING:
+
+#190
+proto_text.c:2580: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 296 by call to `out_string`.
+  2578.         if (! (safe_strtol(tokens[2].value, (int32_t*)&src)
+  2579.                && safe_strtol(tokens[3].value, (int32_t*)&dst))) {
+  2580.             out_string(c, "CLIENT_ERROR bad command line format");
+                    ^
+  2581.             return;
+  2582.         }
+
+#191
+proto_text.c:2607: error: Buffer Overrun L2
+  Offset added: [5, 1022] Size: 48 by call to `out_string`.
+  2605.         process_slabs_automove_command(c, tokens, ntokens);
+  2606.     } else {
+  2607.         out_string(c, "ERROR");
+                ^
+  2608.     }
+  2609. }
+
+#192
+proto_text.c:2623: error: Buffer Overrun L2
+  Offset added: [2, 1022] Size: 24 by call to `out_string`.
+  2621.         switch(rv) {
+  2622.         case CRAWLER_OK:
+  2623.             out_string(c, "OK");
+                    ^
+  2624.             break;
+  2625.         case CRAWLER_RUNNING:
+
+#193
+proto_text.c:2629: error: Buffer Overrun L2
+  Offset added: [25, 1022] Size: 208 by call to `out_string`.
+  2627.             break;
+  2628.         case CRAWLER_BADCLASS:
+  2629.             out_string(c, "BADCLASS invalid class id");
+                    ^
+  2630.             break;
+  2631.         case CRAWLER_NOTSTARTED:
+
+#194
+proto_text.c:2645: error: Buffer Overrun L2
+  Offset added: [26, 1022] Size: 216 by call to `out_string`.
+  2643.         }
+  2644.         if (!settings.dump_enabled) {
+  2645.             out_string(c, "ERROR metadump not allowed");
+                    ^
+  2646.             return;
+  2647.         }
+
+#195
+proto_text.c:2632: error: Buffer Overrun L2
+  Offset added: [28, 1022] Size: 232 by call to `out_string`.
+  2630.             break;
+  2631.         case CRAWLER_NOTSTARTED:
+  2632.             out_string(c, "NOTSTARTED no items to crawl");
+                    ^
+  2633.             break;
+  2634.         case CRAWLER_ERROR:
+
+#196
+proto_text.c:2635: error: Buffer Overrun L2
+  Offset added: [31, 1022] Size: 256 by call to `out_string`.
+  2633.             break;
+  2634.         case CRAWLER_ERROR:
+  2635.             out_string(c, "ERROR an unknown error happened");
+                    ^
+  2636.             break;
+  2637.         }
+
+#197
+proto_text.c:2615: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 272 by call to `out_string`.
+  2613.         int rv;
+  2614.         if (settings.lru_crawler == false) {
+  2615.             out_string(c, "CLIENT_ERROR lru crawler disabled");
+                    ^
+  2616.             return;
+  2617.         }
+
+#198
+proto_text.c:2690: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 408 by call to `out_string`.
+  2688.         }
+  2689.         if (resp_has_stack(c)) {
+  2690.             out_string(c, "ERROR cannot pipeline other commands before mgdump");
+                    ^
+  2691.             return;
+  2692.         }
+
+#199
+proto_text.c:2751: error: Buffer Overrun L2
+  Offset added: [5, 1022] Size: 48 by call to `out_string`.
+  2749.             }
+  2750.         } else {
+  2751.             out_string(c, "ERROR");
+                    ^
+  2752.         }
+  2753.         return;
+
+#200
+proto_text.c:2755: error: Buffer Overrun L2
+  Offset added: [5, 1022] Size: 48 by call to `out_string`.
+  2753.         return;
+  2754.     } else {
+  2755.         out_string(c, "ERROR");
+                ^
+  2756.     }
+  2757. }
+
+#201
+memcached.c:2661: error: Integer Overflow L2
+  ([0, +oo] - 1):unsigned8 by call to `resp_finish`.
+  2659.         int x;
+  2660.         if (resp->skip) {
+  2661.             resp = resp_finish(c, resp);
+                           ^
+  2662.             continue;
+  2663.         }
+
+#202
+memcached.c:2661: error: Integer Overflow L2
+  ([0, `c->thread->stats.response_obj_bytes`] - 16384):unsigned64 by call to `resp_finish`.
+  2659.         int x;
+  2660.         if (resp->skip) {
+  2661.             resp = resp_finish(c, resp);
+                           ^
+  2662.             continue;
+  2663.         }
+
+#203
+memcached.c:2661: error: Integer Overflow L2
+  ([0, `c->thread->stats.response_obj_count`] - 1):unsigned64 by call to `resp_finish`.
+  2659.         int x;
+  2660.         if (resp->skip) {
+  2661.             resp = resp_finish(c, resp);
+                           ^
+  2662.             continue;
+  2663.         }
+
+#204
+memcached.c:2794: error: Dead Store
+  The value written to &hdr (type unsigned char*) is never used.
+  2792.     *hdr++ = resp->udp_total % 256;
+  2793.     *hdr++ = 0;
+  2794.     *hdr++ = 0;
+             ^
+  2795.     resp->udp_sequence++;
+  2796. }
+
+#205
+proto_text.c:2808: error: Buffer Overrun L2
+  Offset added: [5, 1022] Size: 48 by call to `out_string`.
+  2806.     // There are also no valid commands shorter than two bytes.
+  2807.     if (ntokens < 2 || tokens[COMMAND_TOKEN].length < 2) {
+  2808.         out_string(c, "ERROR");
+                ^
+  2809.         return;
+  2810.     }
+
+#206
+memcached.c:2827: error: Dead Store
+  The value written to &resp (type _mc_resp*) is never used.
+  2825. 
+  2826.     if (resp->skip) {
+  2827.         resp = resp_finish(c, resp);
+                ^
+  2828.         return TRANSMIT_INCOMPLETE;
+  2829.     }
+
+#207
+memcached.c:3272: error: Buffer Overrun L2
+  Offset added: [33, 1022] Size: 312 by call to `out_of_memory`.
+  3270.             /* Memory allocation failure */
+  3271.             if (res == -2) {
+  3272.                 out_of_memory(c, "SERVER_ERROR Out of memory during read");
+                        ^
+  3273.                 c->sbytes = c->rlbytes;
+  3274.                 conn_set_state(c, conn_swallow);
+
+#208
+memcached.c:3063: error: Dead Store
+  The value written to &res (type int) is never used.
+  3061.             if (reject) {
+  3062.                 str = "ERROR Too many open connections\r\n";
+  3063.                 res = write(sfd, str, strlen(str));
+                        ^
+  3064.                 close(sfd);
+  3065.             } else {
+
+#209
+memcached.c:3392: error: Integer Overflow L2
+  ([0, +oo] - 1):unsigned64 by call to `conn_close`.
+  3390.                 conn_cleanup(c);
+  3391.             else
+  3392.                 conn_close(c);
+                        ^
+  3393.             stop = true;
+  3394.             break;
+
+#210
+memcached.c:3362: error: Integer Overflow L2
+  ([0, +oo] - 1):unsigned8 by call to `transmit_udp`.
+  3360.             }
+  3361. 
+  3362.             switch (!IS_UDP(c->transport) ? transmit(c) : transmit_udp(c)) {
+                                                                  ^
+  3363.             case TRANSMIT_COMPLETE:
+  3364.                 if (c->state == conn_mwrite) {
+
+#211
+memcached.c:3362: error: Integer Overflow L2
+  ([0, `c->thread->stats.response_obj_bytes`] - 16384):unsigned64 by call to `transmit_udp`.
+  3360.             }
+  3361. 
+  3362.             switch (!IS_UDP(c->transport) ? transmit(c) : transmit_udp(c)) {
+                                                                  ^
+  3363.             case TRANSMIT_COMPLETE:
+  3364.                 if (c->state == conn_mwrite) {
+
+#212
+memcached.c:3362: error: Integer Overflow L2
+  ([0, `c->thread->stats.response_obj_count`] - 1):unsigned64 by call to `transmit_udp`.
+  3360.             }
+  3361. 
+  3362.             switch (!IS_UDP(c->transport) ? transmit(c) : transmit_udp(c)) {
+                                                                  ^
+  3363.             case TRANSMIT_COMPLETE:
+  3364.                 if (c->state == conn_mwrite) {
+
+#213
+memcached.c:3440: error: Integer Overflow L2
+  ([0, +oo] - 1):unsigned64 by call to `conn_close`.
+  3438.         if (settings.verbose > 0)
+  3439.             fprintf(stderr, "Catastrophic: event fd doesn't match conn fd!\n");
+  3440.         conn_close(c);
+                ^
+  3441.         return;
+  3442.     }
+
+#214
+memcached.c:3751: error: Dead Store
+  The value written to &e (type char*) is never used.
+  3749.                     *e = '\0';
+  3750.                     size_t len = e - st;
+  3751.                     p = ++e; // skip ']'
+                                ^
+  3752.                     p++; // skip an assumed ':'
+  3753. 
+
+#215
+memcached.c:3791: error: Dead Store
+  The value written to &e (type char*) is never used.
+  3789.                     *e = '\0';
+  3790.                     size_t len = e - st;
+  3791.                     p = ++e; // skip ']'
+                                ^
+  3792.                     p++; // skip an assumed ':'
+  3793. 
+
+#216
+memcached.c:3819: error: Dead Store
+  The value written to &e (type char*) is never used.
+  3817.                 h = ++p; // skip the opening '['
+  3818.                 *e = '\0';
+  3819.                 p = ++e; // skip the closing ']'
+                            ^
+  3820.             }
+  3821. 
+
+#217
+memcached.c:3748: error: Dead Store
+  The value written to &p (type char*) is never used.
+  3746.                         return 1;
+  3747.                     }
+  3748.                     char *st = ++p; // skip '[';
+                                       ^
+  3749.                     *e = '\0';
+  3750.                     size_t len = e - st;
+
+#218
+memcached.c:3788: error: Dead Store
+  The value written to &p (type char*) is never used.
+  3786.                         return 1;
+  3787.                     }
+  3788.                     char *st = ++p; // skip '['
+                                       ^
+  3789.                     *e = '\0';
+  3790.                     size_t len = e - st;
+
+#219
+memcached.c:3817: error: Dead Store
+  The value written to &p (type char*) is never used.
+  3815.                     return 1;
+  3816.                 }
+  3817.                 h = ++p; // skip the opening '['
+                            ^
+  3818.                 *e = '\0';
+  3819.                 p = ++e; // skip the closing ']'
+
+#220
+xxhash.h:4396: error: Integer Overflow L1
+  ([max(129, `len`), min(240, `len`)] × 11400714785074694791):unsigned64 by call to `XXH3_len_129to240_64b`.
+  4394.         return XXH3_len_17to128_64b((const xxh_u8*)input, len, (const xxh_u8*)secret, secretLen, seed64);
+  4395.     if (len <= XXH3_MIDSIZE_MAX)
+  4396.         return XXH3_len_129to240_64b((const xxh_u8*)input, len, (const xxh_u8*)secret, secretLen, seed64);
+                       ^
+  4397.     return f_hashLong(input, len, seed64, (const xxh_u8*)secret, secretLen);
+  4398. }
+
+#221
+xxhash.h:4394: error: Integer Overflow L1
+  ([max(17, `len`), min(128, `len`)] × 11400714785074694791):unsigned64 by call to `XXH3_len_17to128_64b`.
+  4392.         return XXH3_len_0to16_64b((const xxh_u8*)input, len, (const xxh_u8*)secret, seed64);
+  4393.     if (len <= 128)
+  4394.         return XXH3_len_17to128_64b((const xxh_u8*)input, len, (const xxh_u8*)secret, secretLen, seed64);
+                       ^
+  4395.     if (len <= XXH3_MIDSIZE_MAX)
+  4396.         return XXH3_len_129to240_64b((const xxh_u8*)input, len, (const xxh_u8*)secret, secretLen, seed64);
+
+Found 222 issues
+                  Issue Type(ISSUED_TYPE_ID): #
+        Buffer Overrun L2(BUFFER_OVERRUN_L2): 108
+    Integer Overflow L2(INTEGER_OVERFLOW_L2): 41
+        Buffer Overrun L3(BUFFER_OVERRUN_L3): 27
+                      Dead Store(DEAD_STORE): 17
+    Uninitialized Value(UNINITIALIZED_VALUE): 16
+          Null Dereference(NULL_DEREFERENCE): 6
+    Integer Overflow L1(INTEGER_OVERFLOW_L1): 4
+          Unreachable Code(UNREACHABLE_CODE): 1
+  Inferbo Alloc Is Big(INFERBO_ALLOC_IS_BIG): 1
+        Buffer Overrun S2(BUFFER_OVERRUN_S2): 1
