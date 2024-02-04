@@ -95,10 +95,10 @@ void* do_cache_alloc(cache_t *cache) {
     if (object != NULL) {
         /* add a simple form of buffer-check */
         uint64_t *pre = ret;
-        *pre = redzone_pattern;
+        *pre = redzone_pattern;// infer report 0-20 left 8 byte
         ret = pre+1;
-        memcpy(((char*)ret) + cache->bufsize - (2 * sizeof(redzone_pattern)),
-               &redzone_pattern, sizeof(redzone_pattern));
+        memcpy(((char*)ret) + cache->bufsize - (2 * sizeof(redzone_pattern)),//20? 0,160 right 8 byte
+               &redzone_pattern, sizeof(redzone_pattern));//0,160
     }
 #endif
 

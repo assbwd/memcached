@@ -38,6 +38,24 @@ static enum test_return cache_limit_revised_downward_test(void) {
   return TEST_PASS;
 }
 
+const char* random_string(size_t length) {
+  char* str = malloc(length + 1);
+  assert(str != NULL);
+  for (size_t i = 0; i < length; i++) {
+    str[i] = 'a' + rand() % 26;
+  }
+  str[length] = '\0';
+  return str;
+}
+
+// generate a random unsigned integer between 0 and max
+// like `__VERIFIER_nondet_uint()` in SV-COMP
+size_t random_uint(size_t max) {
+  // initialize random seed, or it will always be the same
+  srand(time(NULL));
+  return rand() % max;
+}
+
 int main() {
   size_t s = sizeof(uint64_t);
   printf("size of uint64_t is: %ld\n", s);
